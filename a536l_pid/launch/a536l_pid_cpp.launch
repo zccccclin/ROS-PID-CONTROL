@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<launch>
+  <!-- Launch the world. -->
+  <arg name="world_name" default="$(find 
+a536l_pid)/worlds/singlePillar.world"/>
+  <arg name="laser_enabled" default="true"/>
+  <arg name="kinect_enabled" default="false"/>
+  <include file="$(find gazebo_ros)/launch/empty_world.launch">
+    <arg name="world_name" value="$(arg world_name)"/>
+  </include>
+  <include file="$(find husky_gazebo)/launch/spawn_husky.launch"/>
+  <node pkg='a536l_pid' type='a536l_pid' name='pid_control_node_cpp' 
+  output='screen' launch-prefix='gnome-terminal --command'/>
+  <rosparam command='load' file='$(find a536l_pid)/config/config.yaml'/>
+</launch>
